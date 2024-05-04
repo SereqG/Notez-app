@@ -4,7 +4,7 @@ import { VscSettings } from 'react-icons/vsc'
 export function SearchBar() {
   return (
     <div className="my-6 flex gap-2">
-      <TextInput placeholder="Search" />
+      <TextInput placeholder="Search" onChange={() => console.log('click')} />
       <button className="rounded-full p-3 text-xl transition-all duration-300 hover:bg-primary">
         <VscSettings />
       </button>

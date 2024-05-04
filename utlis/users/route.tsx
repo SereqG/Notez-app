@@ -1,5 +1,5 @@
-export const getGroups = async (userId: string) => {
-  const response = await fetch(`http://localhost:8080/group/${userId}`, {
+export const GET = async (userEmail: string) => {
+  const response = await fetch(`http://localhost:8080/user/${userEmail}`, {
     cache: 'no-store',
   })
 
@@ -11,5 +11,5 @@ export const getGroups = async (userId: string) => {
 
   const data = await response.json()
 
-  return data
+  return Response.json(data)
 }

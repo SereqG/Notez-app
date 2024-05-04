@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
+import { PopupDataContextProvider } from '@/context/PopupData'
+
 import { ClerkProvider } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
 
@@ -29,15 +31,18 @@ export default function RootLayout({
           colorInputBackground: '#282638',
         },
       }}
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
-      <html lang="en">
-        <body
-          className={`${font.className} bg-background text-content flex flex-col items-center`}
-        >
-          <Navbar />
-          {children}
-        </body>
-      </html>
+      <PopupDataContextProvider>
+        <html lang="en">
+          <body
+            className={`${font.className} flex flex-col items-center bg-background text-content`}
+          >
+            <Navbar />
+            {children}
+          </body>
+        </html>
+      </PopupDataContextProvider>
     </ClerkProvider>
   )
 }
