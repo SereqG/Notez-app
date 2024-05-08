@@ -1,4 +1,5 @@
 import { Sidebar } from '@/components/sidebar/Sidebar'
+import { SearchDataContextProvider } from '@/context/SearchParam'
 
 export default function MainLayout({
   children,
@@ -7,8 +8,10 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <Sidebar />
-      {children}
+      <SearchDataContextProvider>
+        <Sidebar />
+        {children}
+      </SearchDataContextProvider>
     </>
   )
 }

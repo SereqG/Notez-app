@@ -7,14 +7,65 @@ import { groupType } from '@/types/groupType'
 import { Popup } from '../ui/popup/Popup'
 
 import { usePopupDataContext } from '../../context/PopupData'
+import { useState } from 'react'
+import { useSearchDataContext } from '@/context/SearchParam'
 
 interface props {
   type: string
-  groups: groupType
+  groups: groupType[]
 }
 
 export function Data({ type, groups }: props) {
   const { popupData } = usePopupDataContext()
+  const { searchParams } = useSearchDataContext()
+
+  const filterByName = () => {
+    if (searchParams.typedName == '') {
+      return groups
+    } else {
+      return groups.filter((el: groupType) =>
+        el.name.toLowerCase().includes(searchParams.typedName.toLowerCase())
+      )
+    }
+  }
+
+  const sortAlphabetically = (alphabetically: boolean = true) => {
+    if (alphabetically) {
+      return filterByName().sort((a, b) =>
+        a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+      )
+    } else {
+      return filterByName().sort((a, b) =>
+        a.name.toLowerCase() > b.name.toLowerCase() ? -1 : 1
+      )
+    }
+  }
+
+  const sortByTime = (theNewest: boolean = true) => {
+    if (theNewest) {
+      return filterByName().sort((a, b) => (a.createdAt > b.createdAt ? -1 : 1))
+    } else {
+      return filterByName().sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+    }
+  }
+
+  const dataToDisplay = () => {
+    if (groups.length > 0) {
+      if (searchParams.fileName !== '') {
+        return searchParams.fileName === 'alphabetically'
+          ? sortAlphabetically()
+          : sortAlphabetically(false)
+      } else if (searchParams.time !== '') {
+        return searchParams.time === 'the newest'
+          ? sortByTime()
+          : sortByTime(false)
+      } else {
+        return filterByName()
+      }
+    } else {
+      return []
+    }
+  }
 
   return (
     <div className="w-5/6 min-w-60 max-w-7xl lg:w-1/3 lg:min-w-[420px]">
@@ -28,7 +79,7 @@ export function Data({ type, groups }: props) {
           <ButtonsSection />
         </div>
         <main className="mt-6 max-h-[60vh] overflow-y-auto">
-          <DataList data={groups} />
+          <DataList data={dataToDisplay()} />
         </main>
       </div>
     </div>
