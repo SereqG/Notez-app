@@ -2,13 +2,13 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { TextInput } from '../../inputs/TextInput'
 import { MainButton } from '../../buttons/MainButton'
 import { SquareButton } from '../../buttons/SquareButton'
-import { IoClose, IoSearchSharp } from 'react-icons/io5'
+import { IoSearchSharp } from 'react-icons/io5'
 import { GroupMember } from '@/types/groupMember'
-import { UserIcon } from '../../user/UserIcon'
-import { addUserToTheList } from './addUserToTheList'
-import { removeUserFromTheList } from './romoveUserFromTheList'
+import { addUserToTheList } from '../../../../utlis/groups/post/addUserToTheList'
+import { removeUserFromTheList } from '../../../../utlis/groups/post/romoveUserFromTheList'
 import { useUser } from '@clerk/nextjs'
-import { postGroups } from '@/utlis/groups/postGroup'
+import { UserList } from '../../list/UserList'
+import { validateUserWhenAddToTheGroup } from '@/utlis/general/validateUserWhenAddToTheGroup'
 
 interface AddUserProps {
   userType: 'admins' | 'members'
@@ -57,46 +57,54 @@ export function AddMember({
             value={email}
           />
           <SquareButton
-            onClick={() =>
-              addUserToTheList({
-                email: email,
-                setEmail: setEmail,
-                setError: setError,
-                userType: userType,
-                setGroupData: setGroupData,
-                groupData: groupData,
+            onClick={() => {
+              const userList = groupData[userType].map(
+                (user) => user.emailAddress
+              )
+              const memberList = groupData.members.map(
+                (user) => user.emailAddress
+              )
+              const validation = validateUserWhenAddToTheGroup({
+                email,
+                setError,
+                userList,
+                userType,
+                memberList,
               })
-            }
+
+              validation.then((res) => {
+                if (res.isSuccess) {
+                  addUserToTheList({
+                    email: email,
+                    setEmail: setEmail,
+                    setError: setError,
+                    userType: userType,
+                    setGroupData: setGroupData,
+                    groupData: groupData,
+                  })
+                }
+              })
+            }}
           >
             <IoSearchSharp />
           </SquareButton>
         </div>
         <p className="text-sm text-red-700">{error}</p>
       </div>
-      <div className="flex flex-col gap-2">
-        <h2>User list</h2>
-        <div className="flex max-h-40 flex-col gap-2 overflow-auto">
-          {groupData[userType].map((member, index) => (
-            <div key={index} className="flex h-10 justify-between">
-              <UserIcon photoOnly={false} userData={member} />
-              <SquareButton
-                onClick={() =>
-                  removeUserFromTheList({
-                    userId: member.id,
-                    userType: userType,
-                    setGroupData: setGroupData,
-                    groupData: groupData,
-                    setError: setError,
-                    loggedUser: user,
-                  })
-                }
-              >
-                <IoClose />
-              </SquareButton>
-            </div>
-          ))}
-        </div>
-      </div>
+      <UserList
+        userData={groupData[userType]}
+        deleteUserOption={true}
+        deleteUserFunction={(member: GroupMember) => {
+          removeUserFromTheList({
+            userId: member.id,
+            userType: userType,
+            setGroupData: setGroupData,
+            groupData: groupData,
+            setError: setError,
+            loggedUser: user,
+          })
+        }}
+      />
       <MainButton
         onClick={() => {
           setModalType('')

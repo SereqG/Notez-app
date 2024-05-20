@@ -1,5 +1,6 @@
 export const getGroups = async (userId: string) => {
   const response = await fetch(`http://localhost:8080/group/${userId}`, {
+    cache: 'no-cache',
     next: { tags: ['group update'] },
   })
 

@@ -1,12 +1,16 @@
 import { groupType } from '@/types/groupType'
 import { DataListElement } from './DataListElement'
 
-export function DataList(data: any) {
+interface props {
+  data: groupType[]
+}
+
+export function DataList({ data }: props) {
   return (
     <div>
-      {data.data.length > 0 ? (
+      {data.length > 0 ? (
         <ul>
-          {data.data.map((el: groupType) => (
+          {data.map((el: groupType) => (
             <DataListElement key={el.id} data={el} />
           ))}
         </ul>

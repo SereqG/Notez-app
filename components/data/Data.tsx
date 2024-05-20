@@ -7,7 +7,6 @@ import { groupType } from '@/types/groupType'
 import { Popup } from '../ui/popup/Popup'
 
 import { usePopupDataContext } from '../../context/PopupData'
-import { useState } from 'react'
 import { useSearchDataContext } from '@/context/SearchParam'
 
 interface props {

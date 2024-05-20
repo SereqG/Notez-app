@@ -10,8 +10,6 @@ export function SearchBar() {
   const { popupData, setPopupData } = usePopupDataContext()
   const { searchParams, setSearchParams } = useSearchDataContext()
 
-  console.log(searchParams)
-
   return (
     <div className="my-6 flex gap-2">
       <TextInput
