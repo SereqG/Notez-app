@@ -1,14 +1,14 @@
 'use client'
 
 import { usePopupDataContext } from '@/context/PopupData'
-import { groupType } from '@/types/groupType'
+import { groupAndDataType, groupType } from '@/types/data'
 import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { ListElementOption } from '../ui/popup/listElementOption/ListElementOption'
 
 interface props {
-  data: groupType
+  data: groupAndDataType
 }
 
 export function DataListElement({ data }: props) {

@@ -3,26 +3,26 @@
 import { SearchBar } from './SearchBar'
 import { ButtonsSection } from './ButtonsSection'
 import { DataList } from './DataList'
-import { groupType } from '@/types/groupType'
+import { groupAndDataType, groupType } from '@/types/data'
 import { Popup } from '../ui/popup/Popup'
 
 import { usePopupDataContext } from '../../context/PopupData'
 import { useSearchDataContext } from '@/context/SearchParam'
 
 interface props {
-  type: string
-  groups: groupType[]
+  type: 'groups' | 'files'
+  data: groupAndDataType[]
 }
 
-export function Data({ type, groups }: props) {
+export function Data({ type, data }: props) {
   const { popupData } = usePopupDataContext()
   const { searchParams } = useSearchDataContext()
 
   const filterByName = () => {
     if (searchParams.typedName == '') {
-      return groups
+      return data
     } else {
-      return groups.filter((el: groupType) =>
+      return data.filter((el: groupAndDataType) =>
         el.name.toLowerCase().includes(searchParams.typedName.toLowerCase())
       )
     }
@@ -49,7 +49,7 @@ export function Data({ type, groups }: props) {
   }
 
   const dataToDisplay = () => {
-    if (groups.length > 0) {
+    if (data.length > 0) {
       if (searchParams.fileName !== '') {
         return searchParams.fileName === 'alphabetically'
           ? sortAlphabetically()
@@ -73,7 +73,9 @@ export function Data({ type, groups }: props) {
       <div className="">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-3">
-            <h1 className="font-bold">{type}</h1>
+            <h1 className="font-bold">
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </h1>
           </div>
           <ButtonsSection />
         </div>

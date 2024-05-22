@@ -6,7 +6,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { ChangeGroupName } from './options/ChangeGroupName'
 import { ModifyUserList } from './options/ModifyUserList'
 import { getParticularGroup } from '@/utlis/groups/get/getParticularGroup/route'
-import { groupType } from '@/types/groupType'
+import { groupType } from '@/types/data'
 import { deleteGroup } from '@/utlis/groups/delete/route'
 import { usePopupDataContext } from '@/context/PopupData'
 

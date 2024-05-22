@@ -1,7 +1,7 @@
 import { TextInput } from '@/components/ui/inputs/TextInput'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-import { groupType } from '@/types/groupType'
+import { groupType } from '@/types/data'
 import { updateName } from '@/utlis/groups/groupNameUpdate/route'
 import { SquareButton } from '@/components/ui/buttons/SquareButton'
 import { FaCheck } from 'react-icons/fa6'

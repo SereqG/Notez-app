@@ -3,8 +3,10 @@
 import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { IoIosArrowBack, IoIosArrowDown } from 'react-icons/io'
-import { useState } from 'react'
-import { groupType } from '@/types/groupType'
+import { useEffect, useState } from 'react'
+import { fileType, groupType } from '@/types/data'
+import { getFile } from '@/utlis/files/get/route'
+import { FileList } from './FileList'
 
 interface props {
   group: groupType
@@ -12,6 +14,15 @@ interface props {
 
 export function Group({ group }: props) {
   const [isFileListOpen, setIsFileListOpen] = useState<boolean>(false)
+  const [fileList, setFileList] = useState<fileType[]>([])
+
+  useEffect(() => {
+    group.files.map((el: string) => {
+      getFile(el).then((file) => setFileList([...fileList, file.data]))
+    })
+  }, [group])
+
+  console.log(fileList)
 
   return (
     <div key={group.id} className="w-64">
@@ -33,15 +44,18 @@ export function Group({ group }: props) {
                 : group.name}
             </h2>
           </Link>
-          <button
-            data-testid="group-btn"
-            className="rounded-full p-2 transition-all duration-300 hover:bg-primary"
-            onClick={() => setIsFileListOpen(!isFileListOpen)}
-          >
-            {isFileListOpen ? <IoIosArrowDown /> : <IoIosArrowBack />}
-          </button>
+          {group.files.length > 0 && (
+            <button
+              data-testid="group-btn"
+              className="rounded-full p-2 transition-all duration-300 hover:bg-primary"
+              onClick={() => setIsFileListOpen(!isFileListOpen)}
+            >
+              {isFileListOpen ? <IoIosArrowDown /> : <IoIosArrowBack />}
+            </button>
+          )}
         </div>
       </div>
+      {isFileListOpen && <FileList fileList={fileList} />}
     </div>
   )
 }

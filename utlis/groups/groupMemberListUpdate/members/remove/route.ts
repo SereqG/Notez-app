@@ -1,6 +1,6 @@
 'use server'
 
-import { groupType } from '@/types/groupType'
+import { groupType } from '@/types/data'
 import { revalidateTag } from 'next/cache'
 
 export const removeUserFromGroup = async (

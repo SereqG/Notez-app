@@ -11,7 +11,7 @@ export default async function Page() {
   console.log(groups)
   return (
     <div className="flex w-full justify-center">
-      <Data type="Groups" groups={groups} />
+      <Data type="groups" data={groups} />
     </div>
   )
 }

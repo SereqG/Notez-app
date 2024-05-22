@@ -1,6 +1,6 @@
 import { SquareButton } from '@/components/ui/buttons/SquareButton'
 import { TextInput } from '@/components/ui/inputs/TextInput'
-import { groupType } from '@/types/groupType'
+import { groupType } from '@/types/data'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import { updateMembers } from '@/utlis/groups/groupMemberListUpdate/members/add/route'
