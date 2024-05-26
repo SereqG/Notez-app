@@ -1,22 +1,75 @@
 'use client'
 
 import { SearchBar } from './SearchBar'
-import { ButtonsSection } from './ButtonsSection'
+import { ButtonsSection } from '../ui/buttons/ButtonsSection'
 import { DataList } from './DataList'
 import { groupAndDataType, groupType } from '@/types/data'
 import { Popup } from '../ui/popup/Popup'
 
 import { usePopupDataContext } from '../../context/PopupData'
 import { useSearchDataContext } from '@/context/SearchParam'
+import { useEffect, useState } from 'react'
+import { fetchFiles } from '@/utlis/general/fetchFiles'
+import { CreateGroup } from '../ui/popup/createGroup/CreateGroup'
+import { GroupSettings } from '../ui/popup/groupSettings/GroupSettings'
 
 interface props {
   type: 'groups' | 'files'
-  data: groupAndDataType[]
+  group: groupType[]
+  files: string[]
 }
 
-export function Data({ type, data }: props) {
-  const { popupData } = usePopupDataContext()
+export function Data({ type, group, files }: props) {
+  const { popupData, setPopupData } = usePopupDataContext()
   const { searchParams } = useSearchDataContext()
+  const [data, setData] = useState<groupAndDataType[]>([])
+
+  const groupButtons: {
+    text: string
+    onClick: () => void
+  }[] = [
+    {
+      text: 'New group',
+      onClick: () => {
+        setPopupData({
+          children: <CreateGroup />,
+          isVisible: !popupData.isVisible,
+        })
+      },
+    },
+  ]
+
+  const fileButtons: {
+    text: string
+    onClick: () => void
+  }[] = [
+    {
+      text: 'Group settings',
+      onClick: () => {
+        setPopupData({
+          children: <GroupSettings />,
+          isVisible: !popupData.isVisible,
+        })
+      },
+    },
+    {
+      text: 'New file',
+      onClick: () => {
+        setPopupData({
+          children: <GroupSettings />,
+          isVisible: !popupData.isVisible,
+        })
+      },
+    },
+  ]
+
+  useEffect(() => {
+    if (type == 'files') {
+      fetchFiles(files, setData)
+    } else {
+      setData(group)
+    }
+  }, [])
 
   const filterByName = () => {
     if (searchParams.typedName == '') {
@@ -77,10 +130,12 @@ export function Data({ type, data }: props) {
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </h1>
           </div>
-          <ButtonsSection />
+          <ButtonsSection
+            buttons={type == 'groups' ? groupButtons : fileButtons}
+          />
         </div>
         <main className="mt-6 max-h-[60vh] overflow-y-auto">
-          <DataList data={dataToDisplay()} />
+          <DataList data={dataToDisplay()} type={type} />
         </main>
       </div>
     </div>

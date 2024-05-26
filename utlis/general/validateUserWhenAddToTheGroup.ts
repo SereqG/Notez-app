@@ -30,8 +30,6 @@ export async function validateUserWhenAddToTheGroup({
         if (memberList?.includes(email)) {
           success = true
         } else {
-          console.log(memberList)
-          console.log(memberList?.includes(email))
           setError('Admin has to be member')
         }
       } else {

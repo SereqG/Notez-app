@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Image from 'next/image'
 import { UserButton, useUser } from '@clerk/nextjs'
 import { IoMenu, IoClose } from 'react-icons/io5'
 
@@ -13,13 +12,13 @@ const linksList: {
   auth: boolean
 }[] = [
   {
-    label: 'Groups',
-    path: '/groups',
+    label: 'Homepage',
+    path: '/',
     auth: true,
   },
   {
-    label: 'User panel',
-    path: '/user_panel',
+    label: 'Groups',
+    path: '/groups',
     auth: true,
   },
   {
@@ -40,7 +39,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
   return (
-    <nav className="sm:border-primary my-3 flex w-full flex-wrap items-center justify-between gap-6 rounded-3xl px-6 py-2.5 sm:w-auto sm:border-2">
+    <nav className="my-3 flex w-full flex-wrap items-center justify-between gap-6 rounded-3xl px-6 py-2.5 sm:w-auto sm:border-2 sm:border-primary">
       <Link href="/" className="font-bold sm:border-r sm:pr-6">
         NoteZ
       </Link>
@@ -63,7 +62,7 @@ export function Navbar() {
               <li key={index} onClick={() => setIsMenuOpen(false)}>
                 <Link
                   href={el.path}
-                  className={`${el.path == pathname && 'text-primary'} hover:text-primary text-sm font-bold transition-all duration-300`}
+                  className={`${el.path == pathname && 'text-primary'} text-sm font-bold transition-all duration-300 hover:text-primary`}
                 >
                   {el.label}
                 </Link>

@@ -2,11 +2,6 @@ import { Dispatch, SetStateAction } from 'react'
 import { GET } from '../users/route'
 import { GroupMember } from '@/types/groupMember'
 
-interface props {
-  userIds: string[]
-  setState: Dispatch<SetStateAction<GroupMember[]>>
-}
-
 export async function fetchAndProcessUserData(
   userIds: string[],
   setState: Dispatch<SetStateAction<GroupMember[]>>
@@ -41,6 +36,6 @@ export async function fetchAndProcessUserData(
 
     setState(processedUserData)
   } catch (error) {
-    console.error('Error fetching user data:', error)
+    console.error('Error fetching data:', error)
   }
 }

@@ -4,9 +4,10 @@ import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { IoIosArrowBack, IoIosArrowDown } from 'react-icons/io'
 import { useEffect, useState } from 'react'
-import { fileType, groupType } from '@/types/data'
+import { fileType, groupAndDataType, groupType } from '@/types/data'
 import { getFile } from '@/utlis/files/get/route'
 import { FileList } from './FileList'
+import { fetchFiles } from '@/utlis/general/fetchFiles'
 
 interface props {
   group: groupType
@@ -14,15 +15,14 @@ interface props {
 
 export function Group({ group }: props) {
   const [isFileListOpen, setIsFileListOpen] = useState<boolean>(false)
-  const [fileList, setFileList] = useState<fileType[]>([])
+  const [fileList, setFileList] = useState<groupAndDataType[]>([])
 
   useEffect(() => {
     group.files.map((el: string) => {
       getFile(el).then((file) => setFileList([...fileList, file.data]))
     })
+    fetchFiles(group.files, setFileList)
   }, [group])
-
-  console.log(fileList)
 
   return (
     <div key={group.id} className="w-64">

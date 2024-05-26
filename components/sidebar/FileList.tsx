@@ -1,16 +1,19 @@
-import { fileType } from '@/types/data'
+import { fileType, groupAndDataType } from '@/types/data'
 import Link from 'next/link'
 
 interface props {
-  fileList: fileType[]
+  fileList: groupAndDataType[]
 }
 
 export function FileList({ fileList }: props) {
   return (
-    <div className="p-2">
+    <div className="pb-2">
       {fileList.map((el) => (
         <div key={el.id}>
-          <Link className="ml-4 text-sm hover:underline" href={`file/${el.id}`}>
+          <Link
+            className="ml-4 text-sm hover:underline"
+            href={`/files/${el.id}`}
+          >
             {el.name}
           </Link>
         </div>

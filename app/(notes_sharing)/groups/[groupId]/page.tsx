@@ -8,13 +8,13 @@ export default async function Page({
 }: {
   params: { groupId: string }
 }) {
-  const group = await getParticularGroup(params.groupId)
+  const { groups } = await getParticularGroup(params.groupId)
 
-  console.log(group)
+  console.log(groups)
 
   return (
     <div className="flex w-full justify-center">
-      {/* <Data type="files" data={groups} /> */}
+      <Data type="files" group={[]} files={groups.files} />
     </div>
   )
 }
