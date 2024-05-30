@@ -3,6 +3,9 @@
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import React from 'react'
+import { MainButton } from '../ui/buttons/MainButton'
+import { saveContentChanges } from '@/utlis/files/update/changes/route'
+import { fileType } from '@/types/data'
 
 const MenuBar = ({ editor }: any) => {
   if (!editor) {
@@ -45,13 +48,13 @@ const MenuBar = ({ editor }: any) => {
 }
 
 interface props {
-  content: string
+  file: fileType
 }
 
-export function TextEditor({ content }: props) {
+export function TextEditor({ file }: props) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: content,
+    content: file.content && file.content,
     editorProps: {
       attributes: {
         spellcheck: 'false',
@@ -65,6 +68,15 @@ export function TextEditor({ content }: props) {
     <div className="flex flex-col gap-2">
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
+      <div className="flex justify-end">
+        <MainButton
+          onClick={() => {
+            saveContentChanges(file.id, editor?.getHTML())
+          }}
+        >
+          Save
+        </MainButton>
+      </div>
     </div>
   )
 }

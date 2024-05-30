@@ -9,9 +9,6 @@ export const updateFileName = async (fileId: string, newName: string) => {
     {
       method: 'POST',
       mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     }
   )
 
