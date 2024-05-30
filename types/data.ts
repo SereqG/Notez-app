@@ -17,6 +17,7 @@ export interface fileType {
   author: string
   is_open: boolean
   createdAt: string
+  groups: string[]
   photo: string
   members: []
 }

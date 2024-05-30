@@ -1,23 +1,17 @@
 'use server'
 
-import { groupType } from '@/types/data'
 import { revalidateTag } from 'next/cache'
 
-export const removeUserFromGroup = async (
-  groupData: groupType,
-  userEmail: string,
-  userType: 'members' | 'admins'
-) => {
-  revalidateTag('group update')
+export const updateFileName = async (fileId: string, newName: string) => {
+  revalidateTag('get files')
   const response = await fetch(
-    `http://localhost:8080/remove/${userType}/${groupData.id}`,
+    `http://localhost:8080/file/${fileId}/${newName}`,
     {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: userEmail, userList: groupData[userType] }),
     }
   )
 

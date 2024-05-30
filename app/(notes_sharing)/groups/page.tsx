@@ -8,10 +8,9 @@ export default async function Page() {
   const { groups } =
     user && (await getGroups(user.emailAddresses[0].emailAddress))
 
-  console.log(groups)
   return (
     <div className="flex w-full justify-center">
-      <Data type="groups" group={groups} files={[]} />
+      <Data type="groups" group={groups} />
     </div>
   )
 }

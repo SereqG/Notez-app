@@ -1,39 +1,38 @@
-import { useEffect, useState } from 'react'
-import { useUser } from '@clerk/clerk-react'
-
-import { MembersList } from './options/MembersList'
-import { FaArrowLeft } from 'react-icons/fa'
-import { ChangeGroupName } from './options/ChangeGroupName'
-import { ModifyUserList } from './options/ModifyUserList'
-import { getParticularGroup } from '@/utlis/groups/get/getParticularGroup/route'
-import { groupType } from '@/types/data'
-import { deleteGroup } from '@/utlis/groups/delete/route'
 import { usePopupDataContext } from '@/context/PopupData'
+import { fileType, groupType } from '@/types/data'
+import { getFile } from '@/utlis/files/get/route'
+import { getParticularGroup } from '@/utlis/groups/get/getParticularGroup/route'
+import { useUser } from '@clerk/nextjs'
+import { useParams, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
+import { ChangeFileName } from './ChangeFileName'
+import { deleteFileFromTheGroup } from '@/utlis/files/delete/route'
+import { ShareInAnotherGroup } from './ShareInAnotherGroup'
 
 interface props {
-  groupId: string
+  fileId: string
 }
 
-export function ListElementOption({ groupId }: props) {
+export function FileOptions({ fileId }: props) {
   const { user } = useUser()
-
   const { popupData, setPopupData } = usePopupDataContext()
 
-  const [groupData, setGroupData] = useState<groupType>()
+  const router = useRouter()
+
   const [chosenOption, setChosenOption] = useState<
-    | ''
-    | 'showMembers'
-    | 'changeName'
-    | 'modifyMembersList'
-    | 'modifyAdminsList'
-    | 'delete'
+    '' | 'changeName' | 'editFile' | 'shareInAnotherGroup' | 'delete'
   >('')
+  const [fileData, setFileData] = useState<fileType>()
+  const [group, setGroup] = useState<groupType>()
+
+  const params = useParams<{ groupId: string }>()
 
   const options = [
     {
-      label: 'Show all members',
-      onClick: () => setChosenOption('showMembers'),
-      isAuthorizationRequired: false,
+      label: 'Share in another group',
+      onClick: () => setChosenOption('shareInAnotherGroup'),
+      isAuthorizationRequired: true,
     },
     {
       label: 'Change name',
@@ -41,19 +40,13 @@ export function ListElementOption({ groupId }: props) {
       isAuthorizationRequired: true,
     },
     {
-      label: 'Modify members list',
-      onClick: () => setChosenOption('modifyMembersList'),
-      isAuthorizationRequired: true,
-    },
-    {
-      label: 'Modify admins list',
-      onClick: () => setChosenOption('modifyAdminsList'),
-      isAuthorizationRequired: true,
-    },
-    {
-      label: 'Delete',
+      label: 'Delete from the group',
       onClick: () => {
-        deleteGroup(groupData?.id)
+        const deleteFile = deleteFileFromTheGroup({
+          fileId: fileId,
+          file: fileData,
+          groupId: group?.id,
+        })
         setPopupData({ ...popupData, isVisible: !popupData.isVisible })
       },
       isAuthorizationRequired: true,
@@ -61,12 +54,13 @@ export function ListElementOption({ groupId }: props) {
   ]
 
   useEffect(() => {
-    getParticularGroup(groupId).then((group) => {
-      setGroupData(group.groups)
+    getFile(fileId).then((file) => setFileData(file.data))
+    getParticularGroup(params.groupId).then((group) => {
+      setGroup(group.groups)
     })
-  }, [groupId])
+  }, [fileId, params.groupId])
 
-  if (groupData != undefined) {
+  if (fileData != undefined && group != undefined) {
     return (
       <div className="flex">
         {chosenOption != '' && (
@@ -80,9 +74,9 @@ export function ListElementOption({ groupId }: props) {
 
         <div className="flex w-full flex-col gap-3">
           <h1>
-            {groupData.name.length > 25
-              ? groupData.name.slice(0, 24) + '...'
-              : groupData.name}
+            {fileData.name.length > 25
+              ? fileData.name.slice(0, 24) + '...'
+              : fileData.name}
           </h1>
           {chosenOption == '' ? (
             <div className="mb-3 mt-4 flex flex-col items-start gap-3">
@@ -96,7 +90,8 @@ export function ListElementOption({ groupId }: props) {
                     className={`text-xs underline ${
                       el.isAuthorizationRequired &&
                       user != null &&
-                      !groupData.admins.includes(
+                      fileData.author != user.emailAddresses[0].emailAddress &&
+                      !group.admins.includes(
                         user.emailAddresses[0].emailAddress
                       )
                         ? 'text-gray-400'
@@ -105,7 +100,8 @@ export function ListElementOption({ groupId }: props) {
                     disabled={
                       el.isAuthorizationRequired &&
                       user != null &&
-                      !groupData.admins.includes(
+                      fileData.author != user.emailAddresses[0].emailAddress &&
+                      !group.admins.includes(
                         user.emailAddresses[0].emailAddress
                       )
                     }
@@ -117,24 +113,12 @@ export function ListElementOption({ groupId }: props) {
                 )
               )}
             </div>
-          ) : chosenOption == 'showMembers' ? (
-            <MembersList userIds={groupData.members} />
           ) : chosenOption == 'changeName' ? (
-            <ChangeGroupName data={groupData} setData={setGroupData} />
-          ) : chosenOption == 'modifyMembersList' ? (
-            <ModifyUserList
-              data={groupData}
-              userType="members"
-              setData={setGroupData}
-            />
+            <ChangeFileName file={fileData} setData={setFileData} />
+          ) : chosenOption == 'shareInAnotherGroup' ? (
+            <ShareInAnotherGroup file={fileData} />
           ) : (
-            chosenOption == 'modifyAdminsList' && (
-              <ModifyUserList
-                data={groupData}
-                userType="admins"
-                setData={setGroupData}
-              />
-            )
+            ''
           )}
         </div>
       </div>

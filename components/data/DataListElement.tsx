@@ -6,6 +6,7 @@ import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { ListElementOption } from '../ui/popup/listElementOption/ListElementOption'
+import { FileOptions } from '../ui/popup/fileOptions/FileOptions'
 
 interface props {
   type: 'groups' | 'files'
@@ -56,7 +57,12 @@ export function DataListElement({ data, type }: props) {
         className="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 hover:bg-primary"
         onClick={() => {
           setPopupData({
-            children: <ListElementOption groupId={data.id} />,
+            children:
+              type === 'groups' ? (
+                <ListElementOption groupId={data.id} />
+              ) : (
+                <FileOptions fileId={data.id} />
+              ),
             isVisible: !popupData.isVisible,
           })
         }}

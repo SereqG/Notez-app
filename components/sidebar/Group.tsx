@@ -4,10 +4,9 @@ import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { IoIosArrowBack, IoIosArrowDown } from 'react-icons/io'
 import { useEffect, useState } from 'react'
-import { fileType, groupAndDataType, groupType } from '@/types/data'
-import { getFile } from '@/utlis/files/get/route'
+import { groupAndDataType, groupType } from '@/types/data'
 import { FileList } from './FileList'
-import { fetchFiles } from '@/utlis/general/fetchFiles'
+import { getAllFilesFromGroup } from '@/utlis/files/get/AllFiles/route'
 
 interface props {
   group: groupType
@@ -18,10 +17,7 @@ export function Group({ group }: props) {
   const [fileList, setFileList] = useState<groupAndDataType[]>([])
 
   useEffect(() => {
-    group.files.map((el: string) => {
-      getFile(el).then((file) => setFileList([...fileList, file.data]))
-    })
-    fetchFiles(group.files, setFileList)
+    getAllFilesFromGroup(group.id).then((data) => setFileList(data))
   }, [group])
 
   return (
@@ -38,7 +34,7 @@ export function Group({ group }: props) {
         )}
         <div className="flex w-full items-center justify-between">
           <Link href={`/groups/${group.id}`} className="hover:underline">
-            <h2 data-testid="group-name" className="font-bold">
+            <h2 className="font-bold">
               {group.name.length > 15
                 ? group.name.slice(0, 14) + '...'
                 : group.name}

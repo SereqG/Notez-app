@@ -9,17 +9,18 @@ import { Popup } from '../ui/popup/Popup'
 import { usePopupDataContext } from '../../context/PopupData'
 import { useSearchDataContext } from '@/context/SearchParam'
 import { useEffect, useState } from 'react'
-import { fetchFiles } from '@/utlis/general/fetchFiles'
 import { CreateGroup } from '../ui/popup/createGroup/CreateGroup'
 import { GroupSettings } from '../ui/popup/groupSettings/GroupSettings'
+import { getAllFilesFromGroup } from '@/utlis/files/get/AllFiles/route'
+// import { fetchFiles } from '@/utlis/general/fetchFiles'
 
 interface props {
   type: 'groups' | 'files'
   group: groupType[]
-  files: string[]
+  groupId?: string
 }
 
-export function Data({ type, group, files }: props) {
+export function Data({ type, group, groupId }: props) {
   const { popupData, setPopupData } = usePopupDataContext()
   const { searchParams } = useSearchDataContext()
   const [data, setData] = useState<groupAndDataType[]>([])
@@ -65,11 +66,15 @@ export function Data({ type, group, files }: props) {
 
   useEffect(() => {
     if (type == 'files') {
-      fetchFiles(files, setData)
+      if (groupId) {
+        getAllFilesFromGroup(groupId).then((files) => {
+          setData(files)
+        })
+      }
     } else {
       setData(group)
     }
-  }, [])
+  }, [group, groupId, type])
 
   const filterByName = () => {
     if (searchParams.typedName == '') {
