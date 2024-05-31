@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { ButtonsSection } from '../ui/buttons/ButtonsSection'
 import { TextEditor } from './TextEditor'
-import { MainButton } from '../ui/buttons/MainButton'
 import { fileType } from '@/types/data'
 
 interface props {
@@ -20,7 +19,6 @@ export function File({ file }: props) {
         setIsEditMode((isEditMode) => !isEditMode)
       },
     },
-    { text: 'Download' },
   ]
 
   return (

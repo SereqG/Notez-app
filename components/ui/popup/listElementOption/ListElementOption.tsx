@@ -9,6 +9,7 @@ import { getParticularGroup } from '@/utlis/groups/get/getParticularGroup/route'
 import { groupType } from '@/types/data'
 import { deleteGroup } from '@/utlis/groups/delete/route'
 import { usePopupDataContext } from '@/context/PopupData'
+import { leaveGroup } from '@/utlis/groups/leave/route'
 
 interface props {
   groupId: string
@@ -33,6 +34,14 @@ export function ListElementOption({ groupId }: props) {
     {
       label: 'Show all members',
       onClick: () => setChosenOption('showMembers'),
+      isAuthorizationRequired: false,
+    },
+    {
+      label: 'Leave the group',
+      onClick: () => {
+        user && leaveGroup(groupData?.id, user.emailAddresses[0].emailAddress)
+        setPopupData({ ...popupData, isVisible: !popupData.isVisible })
+      },
       isAuthorizationRequired: false,
     },
     {
