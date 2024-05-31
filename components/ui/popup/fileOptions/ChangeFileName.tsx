@@ -6,6 +6,7 @@ import { SquareButton } from '@/components/ui/buttons/SquareButton'
 import { FaCheck } from 'react-icons/fa6'
 import { updateFileName } from '@/utlis/files/update/name/route'
 import { useRouter } from 'next/navigation'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface props {
   file: fileType
@@ -14,6 +15,8 @@ interface props {
 
 export function ChangeFileName({ file, setData }: props) {
   const [name, setName] = useState<string>('')
+
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
   const router = useRouter()
   return (
@@ -26,7 +29,10 @@ export function ChangeFileName({ file, setData }: props) {
       />
       <SquareButton
         onClick={() => {
-          updateFileName(file.id, name), setData({ ...file, name: name })
+          updateFileName(file.id, name).then((data) => {
+            setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+          }),
+            setData({ ...file, name: name })
           router.refresh()
         }}
       >

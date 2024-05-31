@@ -12,8 +12,7 @@ import { removeUserFromGroup } from '@/utlis/groups/groupMemberListUpdate/member
 import { GroupMember } from '@/types/groupMember'
 import { updateAdmins } from '@/utlis/groups/groupMemberListUpdate/admins/add/route'
 import { validateUserWhenAddToTheGroup } from '@/utlis/general/validateUserWhenAddToTheGroup'
-import { addUserToTheList } from '@/utlis/groups/post/addUserToTheList'
-import { MembersList } from './MembersList'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface props {
   data: groupType
@@ -27,10 +26,12 @@ export function ModifyUserList({ data, userType, setData }: props) {
   const [error, setError] = useState<string>('')
   const [memberList, setMemberList] = useState<any[]>([])
 
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
+
   useEffect(() => {
     fetchAndProcessUserData(data[userType], setUserList)
     fetchAndProcessUserData(data.members, setMemberList)
-  }, [data])
+  }, [data, userType])
 
   return (
     <div>
@@ -58,10 +59,22 @@ export function ModifyUserList({ data, userType, setData }: props) {
               if (res.isSuccess) {
                 if (userType == 'members') {
                   setData({ ...data, members: [...currentUserList, email] })
-                  updateMembers(data.id, [...currentUserList, email])
+                  updateMembers(data.id, [...currentUserList, email]).then(
+                    (data) =>
+                      setBottomPopupData({
+                        isVisible: true,
+                        isSuccess: data.isSuccess,
+                      })
+                  )
                 } else {
                   setData({ ...data, admins: [...currentUserList, email] })
-                  updateAdmins(data.id, [...currentUserList, email])
+                  updateAdmins(data.id, [...currentUserList, email]).then(
+                    (data) =>
+                      setBottomPopupData({
+                        isVisible: true,
+                        isSuccess: data.isSuccess,
+                      })
+                  )
                 }
               }
             })
@@ -82,8 +95,6 @@ export function ModifyUserList({ data, userType, setData }: props) {
           ).then((newData) =>
             setData({ ...data, [userType]: newData.data[userType] })
           )
-
-          console.log(update)
         }}
       />
     </div>

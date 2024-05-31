@@ -9,6 +9,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { ChangeFileName } from './ChangeFileName'
 import { deleteFileFromTheGroup } from '@/utlis/files/delete/route'
 import { ShareInAnotherGroup } from './ShareInAnotherGroup'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface props {
   fileId: string
@@ -16,9 +17,9 @@ interface props {
 
 export function FileOptions({ fileId }: props) {
   const { user } = useUser()
-  const { popupData, setPopupData } = usePopupDataContext()
 
-  const router = useRouter()
+  const { popupData, setPopupData } = usePopupDataContext()
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
   const [chosenOption, setChosenOption] = useState<
     '' | 'changeName' | 'editFile' | 'shareInAnotherGroup' | 'delete'
@@ -46,7 +47,9 @@ export function FileOptions({ fileId }: props) {
           fileId: fileId,
           file: fileData,
           groupId: group?.id,
-        })
+        }).then((data) =>
+          setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+        )
         setPopupData({ ...popupData, isVisible: !popupData.isVisible })
       },
       isAuthorizationRequired: true,

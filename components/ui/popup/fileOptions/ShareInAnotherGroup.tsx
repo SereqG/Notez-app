@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { SquareButton } from '../../buttons/SquareButton'
 import { FaPlus } from 'react-icons/fa'
 import { shareFile } from '@/utlis/files/share/route'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface props {
   file: fileType
@@ -15,6 +16,8 @@ export function ShareInAnotherGroup({ file }: props) {
   const [groups, setGroups] = useState<groupType[]>()
 
   const { user } = useUser()
+
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
   useEffect(() => {
     if (user) {
@@ -47,7 +50,12 @@ export function ShareInAnotherGroup({ file }: props) {
                 </div>
                 <SquareButton
                   onClick={() => {
-                    shareFile(group.id, file.id)
+                    shareFile(group.id, file.id).then((data) =>
+                      setBottomPopupData({
+                        isVisible: true,
+                        isSuccess: data.isSuccess,
+                      })
+                    )
                     setGroups(() => groups.filter((el) => el.id != group.id))
                   }}
                 >

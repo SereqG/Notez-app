@@ -5,6 +5,7 @@ import { groupType } from '@/types/data'
 import { updateName } from '@/utlis/groups/groupNameUpdate/route'
 import { SquareButton } from '@/components/ui/buttons/SquareButton'
 import { FaCheck } from 'react-icons/fa6'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface props {
   data: groupType
@@ -13,6 +14,8 @@ interface props {
 
 export function ChangeGroupName({ data, setData }: props) {
   const [name, setName] = useState<string>('')
+
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
   return (
     <div className="flex">
@@ -24,7 +27,9 @@ export function ChangeGroupName({ data, setData }: props) {
       />
       <SquareButton
         onClick={() => {
-          updateName(name, data.id)
+          updateName(name, data.id).then((data) =>
+            setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+          )
           setData({ ...data, name: name })
         }}
       >

@@ -18,9 +18,7 @@ export function DataListElement({ data, type }: props) {
   return (
     <div className="flex min-h-16 items-center justify-between px-2">
       <div className="flex items-center">
-        {type == 'files' ? (
-          ''
-        ) : (
+        {type == 'groups' && (
           <div className="m-2 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
             {data.photo ? (
               <CldImage

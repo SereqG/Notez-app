@@ -8,6 +8,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
 
 import { Navbar } from '@/components/ui/navbar/Navbar'
+import { BottomPopupDataContextProvider } from '@/context/BottomPopupContext'
 
 const font = Inter({ subsets: ['latin'] })
 
@@ -34,14 +35,16 @@ export default function RootLayout({
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <PopupDataContextProvider>
-        <html lang="en">
-          <body
-            className={`${font.className} flex flex-col items-center bg-background text-content`}
-          >
-            <Navbar />
-            {children}
-          </body>
-        </html>
+        <BottomPopupDataContextProvider>
+          <html lang="en">
+            <body
+              className={`${font.className} flex flex-col items-center bg-background text-content`}
+            >
+              <Navbar />
+              {children}
+            </body>
+          </html>
+        </BottomPopupDataContextProvider>
       </PopupDataContextProvider>
     </ClerkProvider>
   )

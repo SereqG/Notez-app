@@ -2,6 +2,7 @@ import { groupType } from '@/types/data'
 import { Group } from './Group'
 import { getGroups } from '@/utlis/groups/get/getGroups/route'
 import { currentUser } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
 
 export async function Sidebar() {
   const user = await currentUser()

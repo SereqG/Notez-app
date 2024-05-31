@@ -10,6 +10,7 @@ import { groupType } from '@/types/data'
 import { deleteGroup } from '@/utlis/groups/delete/route'
 import { usePopupDataContext } from '@/context/PopupData'
 import { leaveGroup } from '@/utlis/groups/leave/route'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface props {
   groupId: string
@@ -19,6 +20,7 @@ export function ListElementOption({ groupId }: props) {
   const { user } = useUser()
 
   const { popupData, setPopupData } = usePopupDataContext()
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
   const [groupData, setGroupData] = useState<groupType>()
   const [chosenOption, setChosenOption] = useState<
@@ -39,7 +41,11 @@ export function ListElementOption({ groupId }: props) {
     {
       label: 'Leave the group',
       onClick: () => {
-        user && leaveGroup(groupData?.id, user.emailAddresses[0].emailAddress)
+        user &&
+          leaveGroup(groupData?.id, user.emailAddresses[0].emailAddress).then(
+            (data) =>
+              setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+          )
         setPopupData({ ...popupData, isVisible: !popupData.isVisible })
       },
       isAuthorizationRequired: false,
@@ -62,7 +68,9 @@ export function ListElementOption({ groupId }: props) {
     {
       label: 'Delete',
       onClick: () => {
-        deleteGroup(groupData?.id)
+        deleteGroup(groupData?.id).then((data) =>
+          setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+        )
         setPopupData({ ...popupData, isVisible: !popupData.isVisible })
       },
       isAuthorizationRequired: true,

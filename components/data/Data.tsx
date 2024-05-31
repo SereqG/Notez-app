@@ -10,9 +10,10 @@ import { usePopupDataContext } from '../../context/PopupData'
 import { useSearchDataContext } from '@/context/SearchParam'
 import { useEffect, useState } from 'react'
 import { CreateGroup } from '../ui/popup/createGroup/CreateGroup'
-import { GroupSettings } from '../ui/popup/groupSettings/GroupSettings'
 import { getAllFilesFromGroup } from '@/utlis/files/get/AllFiles/route'
-// import { fetchFiles } from '@/utlis/general/fetchFiles'
+import { ListElementOption } from '../ui/popup/listElementOption/ListElementOption'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
+import { BottomPopup } from '../ui/popup/bottomPopup/BottomPopup'
 
 interface props {
   type: 'groups' | 'files'
@@ -22,6 +23,7 @@ interface props {
 
 export function Data({ type, group, groupId }: props) {
   const { popupData, setPopupData } = usePopupDataContext()
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
   const { searchParams } = useSearchDataContext()
   const [data, setData] = useState<groupAndDataType[]>([])
 
@@ -48,7 +50,7 @@ export function Data({ type, group, groupId }: props) {
       text: 'Group settings',
       onClick: () => {
         setPopupData({
-          children: <GroupSettings />,
+          children: <ListElementOption groupId={groupId ? groupId : ''} />,
           isVisible: !popupData.isVisible,
         })
       },
@@ -57,7 +59,7 @@ export function Data({ type, group, groupId }: props) {
       text: 'New file',
       onClick: () => {
         setPopupData({
-          children: <GroupSettings />,
+          children: '',
           isVisible: !popupData.isVisible,
         })
       },
@@ -127,6 +129,7 @@ export function Data({ type, group, groupId }: props) {
   return (
     <div className="w-5/6 min-w-60 max-w-7xl lg:w-1/3 lg:min-w-[420px]">
       {popupData.isVisible && <Popup />}
+      {bottomPopupData.isVisible && <BottomPopup />}
       <SearchBar />
       <div className="">
         <div className="flex w-full items-center justify-between">

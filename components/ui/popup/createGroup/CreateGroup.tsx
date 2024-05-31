@@ -6,6 +6,7 @@ import { usePopupDataContext } from '@/context/PopupData'
 import { AddUser } from './AddUser'
 import { useUser } from '@clerk/clerk-react'
 import { POST } from '@/utlis/groups/post/route'
+import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 
 interface Member {
   imageUrl?: string
@@ -22,6 +23,8 @@ interface GroupData {
 
 export function CreateGroup() {
   const { popupData, setPopupData } = usePopupDataContext()
+  const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
+
   const [modalType, setModalType] = useState<string>('')
   const [error, setError] = useState<string>('')
 
@@ -48,7 +51,9 @@ export function CreateGroup() {
 
   const handleCreateGroup = () => {
     if (groupData.name !== '') {
-      const res = POST(groupData)
+      const res = POST(groupData).then((data) =>
+        setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+      )
 
       setPopupData({
         ...popupData,
