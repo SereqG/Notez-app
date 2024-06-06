@@ -11,6 +11,7 @@ import { deleteGroup } from '@/utlis/groups/delete/route'
 import { usePopupDataContext } from '@/context/PopupData'
 import { leaveGroup } from '@/utlis/groups/leave/route'
 import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
+import { ChangePhoto } from './options/ChangePhoto'
 
 interface props {
   groupId: string
@@ -30,6 +31,7 @@ export function ListElementOption({ groupId }: props) {
     | 'modifyMembersList'
     | 'modifyAdminsList'
     | 'delete'
+    | 'changePhoto'
   >('')
 
   const options = [
@@ -53,6 +55,11 @@ export function ListElementOption({ groupId }: props) {
     {
       label: 'Change name',
       onClick: () => setChosenOption('changeName'),
+      isAuthorizationRequired: true,
+    },
+    {
+      label: 'Change photo',
+      onClick: () => setChosenOption('changePhoto'),
       isAuthorizationRequired: true,
     },
     {
@@ -144,14 +151,14 @@ export function ListElementOption({ groupId }: props) {
               userType="members"
               setData={setGroupData}
             />
+          ) : chosenOption == 'modifyAdminsList' ? (
+            <ModifyUserList
+              data={groupData}
+              userType="admins"
+              setData={setGroupData}
+            />
           ) : (
-            chosenOption == 'modifyAdminsList' && (
-              <ModifyUserList
-                data={groupData}
-                userType="admins"
-                setData={setGroupData}
-              />
-            )
+            chosenOption == 'changePhoto' && <ChangePhoto />
           )}
         </div>
       </div>
