@@ -7,7 +7,7 @@ import { SquareButton } from '@/components/ui/buttons/SquareButton'
 import { FaCheck } from 'react-icons/fa6'
 import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 import { MainButton } from '@/components/ui/buttons/MainButton'
-import { uploadFile } from '@/utlis/files/upload/uploadFile'
+import { uploadFile } from '@/utlis/groups/photo/uploadFile'
 
 export function ChangePhoto() {
   const [content, setContent] = useState<'form' | 'message'>('form')

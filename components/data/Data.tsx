@@ -14,6 +14,7 @@ import { getAllFilesFromGroup } from '@/utlis/files/get/AllFiles/route'
 import { ListElementOption } from '../ui/popup/listElementOption/ListElementOption'
 import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 import { BottomPopup } from '../ui/popup/bottomPopup/BottomPopup'
+import { AddNewFile } from '../file/AddNewFile'
 
 interface props {
   type: 'groups' | 'files'
@@ -59,7 +60,7 @@ export function Data({ type, group, groupId }: props) {
       text: 'New file',
       onClick: () => {
         setPopupData({
-          children: '',
+          children: <AddNewFile groupId={groupId} />,
           isVisible: !popupData.isVisible,
         })
       },
@@ -134,7 +135,7 @@ export function Data({ type, group, groupId }: props) {
       <div className="">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-3">
-            <h1 className="font-bold">
+            <h1 className="text-base font-bold">
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </h1>
           </div>

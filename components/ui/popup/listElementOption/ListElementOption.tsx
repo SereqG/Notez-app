@@ -103,7 +103,7 @@ export function ListElementOption({ groupId }: props) {
         )}
 
         <div className="flex w-full flex-col gap-3">
-          <h1>
+          <h1 className="text-base">
             {groupData.name.length > 25
               ? groupData.name.slice(0, 24) + '...'
               : groupData.name}

@@ -107,10 +107,10 @@ export function CreateGroup() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="font-bold">Create new group</h1>
+      <h1 className="text-base font-bold">Create new group</h1>
 
       <div>
-        <h2>Group name</h2>
+        <h2 className="text-base font-normal">Group name</h2>
         <TextInput
           onChange={(e) => handleInputChange(e, 'name')}
           placeholder="Group name"
@@ -133,7 +133,7 @@ export function CreateGroup() {
       />
 
       <div>
-        <h2>Set password</h2>
+        <h2 className="text-base font-normal">Set password</h2>
         <TextInput
           onChange={(e) => handleInputChange(e, 'password')}
           placeholder="Password"

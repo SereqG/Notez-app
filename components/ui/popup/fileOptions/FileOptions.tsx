@@ -76,7 +76,7 @@ export function FileOptions({ fileId }: props) {
         )}
 
         <div className="flex w-full flex-col gap-3">
-          <h1>
+          <h1 className="text-base">
             {fileData.name.length > 25
               ? fileData.name.slice(0, 24) + '...'
               : fileData.name}

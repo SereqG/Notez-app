@@ -47,7 +47,9 @@ export function DataListElement({ data, type }: props) {
             {data.name.length > 25 ? data.name.slice(0, 24) + '...' : data.name}
           </Link>
           <div className="flex gap-3 text-xs">
-            <h3>Created at: {data.createdAt.slice(0, 10)}</h3>
+            <h3 className="text-xs">
+              Created at: {data.createdAt.slice(0, 10)}
+            </h3>
           </div>
         </div>
       </div>

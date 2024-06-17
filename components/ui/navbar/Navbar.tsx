@@ -54,7 +54,7 @@ export function Navbar() {
         </button>
       </div>
       <ul
-        className={` ${isMenuOpen ? 'flex' : 'hidden'} h-screen w-full flex-col gap-8 sm:flex sm:h-auto sm:w-auto sm:flex-row`}
+        className={` ${isMenuOpen ? 'flex' : 'hidden'} h-screen w-full list-none flex-col gap-8 sm:flex sm:h-auto sm:w-auto sm:flex-row`}
       >
         {linksList.map(
           (el, index) =>

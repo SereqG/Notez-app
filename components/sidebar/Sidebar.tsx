@@ -12,7 +12,7 @@ export async function Sidebar() {
 
   return (
     <div className="absolute bottom-0 left-0 z-10 hidden h-[80vh] w-80 rounded-t-xl bg-primary-darker p-6 lg:block">
-      <h1 className="font-bold">Groups</h1>
+      <h1 className="text-base font-bold">Groups</h1>
       {groups.length === 0 ? (
         <div>
           <h2>No groups</h2>

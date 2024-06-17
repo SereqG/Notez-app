@@ -34,7 +34,7 @@ export function Group({ group }: props) {
         )}
         <div className="flex w-full items-center justify-between">
           <Link href={`/groups/${group.id}`} className="hover:underline">
-            <h2 className="font-bold">
+            <h2 className="text-base font-bold">
               {group.name.length > 15
                 ? group.name.slice(0, 14) + '...'
                 : group.name}

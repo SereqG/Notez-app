@@ -17,7 +17,7 @@ export function AddUser({
 }: props) {
   return (
     <div>
-      <h2>{header}</h2>
+      <h2 className="text-base font-normal">{header}</h2>
       <p className="text-xs text-primary">You can modify that list any time</p>
       <div className="my-2 flex flex-wrap gap-2">
         {listToRender.map((user, index) => (

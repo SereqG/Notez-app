@@ -2,21 +2,30 @@
 
 import { revalidateTag } from 'next/cache'
 
-export const ChangeGroupPhoto = async (publicId: string, groupId: string) => {
-  console.log(publicId)
+interface props {
+  content: string | undefined
+  filename: string
+  author: string | null | undefined
+  groupId: string | undefined
+  photo?: string
+}
 
+export const upload = async ({
+  content,
+  filename,
+  author,
+  groupId,
+  photo,
+}: props) => {
   revalidateTag('get files')
-  const response = await fetch(
-    `http://localhost:8080/update/photo/${groupId}`,
-    {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ publicId }),
-    }
-  )
+  const response = await fetch(`http://localhost:8080/post/file`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ content, filename, author, groupId, photo }),
+  })
 
   if (!response.ok) {
     throw new Error(

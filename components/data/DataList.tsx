@@ -16,7 +16,7 @@ export function DataList({ data, type }: props) {
           ))}
         </ul>
       ) : (
-        <h1>No data</h1>
+        <h1 className="text-base">No data</h1>
       )}
     </div>
   )
