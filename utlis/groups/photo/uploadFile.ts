@@ -9,8 +9,6 @@ cloudinary.config({
 })
 
 export async function uploadFile(groupId: string, formData: FormData) {
-  console.log(groupId)
-
   const file = formData.get('img') as File
   const arrayBuffer = await file.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)

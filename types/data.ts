@@ -7,6 +7,7 @@ export interface groupType {
   members: string[]
   admins: string[]
   files: string[]
+  type?: string
   createdAt: string
 }
 
@@ -19,6 +20,9 @@ export interface fileType {
   createdAt: string
   groups: string[]
   photo: string
+  type: string
+  path: string
+  filename?: string
   members: []
 }
 

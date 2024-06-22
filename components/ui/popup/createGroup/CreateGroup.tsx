@@ -35,6 +35,8 @@ export function CreateGroup() {
     password: '',
   })
 
+  console.log(groupData.name)
+
   const { user } = useUser()
 
   const handleInputChange = (

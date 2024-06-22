@@ -1,5 +1,7 @@
 'use client'
 
+import '@/style/note.css'
+
 import { EditorContent, Editor } from '@tiptap/react'
 import Toolbar from './Toolbar'
 
@@ -12,7 +14,7 @@ export function EditorComponent({ editor }: props) {
     <div className="w-full py-2">
       <div className="mt-4">
         <Toolbar editor={editor} />
-        <EditorContent style={{ whiteSpace: 'pre-line' }} editor={editor} />
+        <EditorContent editor={editor} />
       </div>
     </div>
   )

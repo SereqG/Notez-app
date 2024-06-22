@@ -4,7 +4,7 @@ import { revalidateTag } from 'next/cache'
 
 interface props {
   content: string | undefined
-  filename: string
+  name: string
   author: string | null | undefined
   groupId: string | undefined
   photo?: string
@@ -12,7 +12,7 @@ interface props {
 
 export const upload = async ({
   content,
-  filename,
+  name,
   author,
   groupId,
   photo,
@@ -24,7 +24,7 @@ export const upload = async ({
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ content, filename, author, groupId, photo }),
+    body: JSON.stringify({ content, name, author, groupId, photo }),
   })
 
   if (!response.ok) {

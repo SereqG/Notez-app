@@ -14,7 +14,7 @@ import { getAllFilesFromGroup } from '@/utlis/files/get/AllFiles/route'
 import { ListElementOption } from '../ui/popup/listElementOption/ListElementOption'
 import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 import { BottomPopup } from '../ui/popup/bottomPopup/BottomPopup'
-import { AddNewFile } from '../file/AddNewFile'
+import { AddNewFile } from '../file/addNewFile/AddNewFile'
 
 interface props {
   type: 'groups' | 'files'

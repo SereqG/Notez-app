@@ -19,38 +19,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #2b263b;
 }
-
-h1 {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 22px;
-  font-weight: 700;
-}
-h3 {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-ul {
-  list-style-type: disc;
-}
-
-ol {
-  list-style-type: decimal;
-}
-
-blockquote {
-  padding-left: 1rem;
-  border-left: 2px solid gray;
-  font-style: italic;
-  color: gray;
-}
-
-hr {
-  border: none;
-  border-top: 2px solid rgba(#0d0d0d, 0.1);
-  margin: 2rem 0;
-}

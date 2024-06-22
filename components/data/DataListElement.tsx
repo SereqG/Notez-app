@@ -16,7 +16,7 @@ interface props {
 export function DataListElement({ data, type }: props) {
   const { popupData, setPopupData } = usePopupDataContext()
   return (
-    <div className="flex min-h-16 items-center justify-between px-2">
+    <div className="mb-4 flex min-h-16 items-center justify-between px-2">
       <div className="flex items-center">
         {type == 'groups' && (
           <div className="m-2 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
@@ -46,7 +46,10 @@ export function DataListElement({ data, type }: props) {
           >
             {data.name.length > 25 ? data.name.slice(0, 24) + '...' : data.name}
           </Link>
-          <div className="flex gap-3 text-xs">
+          <div className="flex flex-col gap-1">
+            {data.type && (
+              <h3 className="text-xs text-primary">Type: {data.type}</h3>
+            )}
             <h3 className="text-xs">
               Created at: {data.createdAt.slice(0, 10)}
             </h3>

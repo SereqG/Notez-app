@@ -22,7 +22,7 @@ export function FileOptions({ fileId }: props) {
   const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
   const [chosenOption, setChosenOption] = useState<
-    '' | 'changeName' | 'editFile' | 'shareInAnotherGroup' | 'delete'
+    '' | 'changeName' | 'shareInAnotherGroup' | 'delete' | 'download'
   >('')
   const [fileData, setFileData] = useState<fileType>()
   const [group, setGroup] = useState<groupType>()
@@ -31,9 +31,15 @@ export function FileOptions({ fileId }: props) {
 
   const options = [
     {
+      label: 'Download',
+      onClick: () =>
+        (window.location.href = `http://localhost:8080/files/${fileData?.filename}`),
+      isAuthorizationRequired: false,
+    },
+    {
       label: 'Share in another group',
       onClick: () => setChosenOption('shareInAnotherGroup'),
-      isAuthorizationRequired: true,
+      isAuthorizationRequired: false,
     },
     {
       label: 'Change name',
