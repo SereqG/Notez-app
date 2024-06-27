@@ -8,14 +8,17 @@ export const saveContentChanges = async (
 ) => {
   console.log(content)
   revalidateTag('get files')
-  const response = await fetch(`http://localhost:8080/update/file/${fileId}`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ content }),
-  })
+  const response = await fetch(
+    `https://notez-backend-97b9381de6f9.herokuapp.com/update/file/${fileId}`,
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    }
+  )
 
   if (!response.ok) {
     throw new Error(

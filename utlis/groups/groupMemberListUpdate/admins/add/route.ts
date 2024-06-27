@@ -4,14 +4,17 @@ import { revalidateTag } from 'next/cache'
 
 export const updateAdmins = async (groupId: string, list: string[]) => {
   revalidateTag('group update')
-  const response = await fetch(`http://localhost:8080/admins/${groupId}`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ list }),
-  })
+  const response = await fetch(
+    `https://notez-backend-97b9381de6f9.herokuapp.com/admins/${groupId}`,
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ list }),
+    }
+  )
 
   if (!response.ok) {
     throw new Error(

@@ -7,14 +7,17 @@ export const leaveGroup = async (
   userEmail: string
 ) => {
   revalidateTag('group update')
-  const response = await fetch(`http://localhost:8080/leave/${groupId}`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userEmail }),
-  })
+  const response = await fetch(
+    `https://notez-backend-97b9381de6f9.herokuapp.com/leave/${groupId}`,
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userEmail }),
+    }
+  )
 
   if (!response.ok) {
     throw new Error(

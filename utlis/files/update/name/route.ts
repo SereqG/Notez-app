@@ -5,7 +5,7 @@ import { revalidateTag } from 'next/cache'
 export const updateFileName = async (fileId: string, newName: string) => {
   revalidateTag('get files')
   const response = await fetch(
-    `http://localhost:8080/file/${fileId}/${newName}`,
+    `https://notez-backend-97b9381de6f9.herokuapp.com/file/${fileId}/${newName}`,
     {
       method: 'POST',
       mode: 'cors',

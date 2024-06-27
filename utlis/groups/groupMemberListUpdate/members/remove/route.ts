@@ -10,7 +10,7 @@ export const removeUserFromGroup = async (
 ) => {
   revalidateTag('group update')
   const response = await fetch(
-    `http://localhost:8080/remove/${userType}/${groupData.id}`,
+    `https://notez-backend-97b9381de6f9.herokuapp.com/remove/${userType}/${groupData.id}`,
     {
       method: 'POST',
       mode: 'cors',

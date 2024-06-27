@@ -1,9 +1,12 @@
 'use server'
 
 export const getFile = async (fileId: string) => {
-  const response = await fetch(`http://localhost:8080/get/file/${fileId}`, {
-    cache: 'no-cache',
-  })
+  const response = await fetch(
+    `https://notez-backend-97b9381de6f9.herokuapp.com/get/file/${fileId}`,
+    {
+      cache: 'no-cache',
+    }
+  )
 
   if (!response.ok) {
     throw new Error(

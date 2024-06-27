@@ -1,7 +1,10 @@
 export const GET = async (userEmail: string) => {
-  const response = await fetch(`http://localhost:8080/user/${userEmail}`, {
-    cache: 'no-store',
-  })
+  const response = await fetch(
+    `https://notez-backend-97b9381de6f9.herokuapp.com/user/${userEmail}`,
+    {
+      cache: 'no-store',
+    }
+  )
 
   if (!response.ok) {
     throw new Error(

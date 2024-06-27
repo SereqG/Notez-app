@@ -33,7 +33,7 @@ export function FileOptions({ fileId }: props) {
     {
       label: 'Download',
       onClick: () =>
-        (window.location.href = `http://localhost:8080/files/${fileData?.filename}`),
+        (window.location.href = `https://notez-backend-97b9381de6f9.herokuapp.com/files/${fileData?.filename}`),
       isAuthorizationRequired: false,
       disabled: fileData?.type == 'note' ? true : false,
     },

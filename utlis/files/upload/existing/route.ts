@@ -9,10 +9,13 @@ interface props {
 export async function uploadExisting({ formData }: props) {
   try {
     revalidateTag('get files')
-    const res = await fetch('http://localhost:8080/upload/existing/file', {
-      method: 'POST',
-      body: formData,
-    })
+    const res = await fetch(
+      'https://notez-backend-97b9381de6f9.herokuapp.com/upload/existing/file',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    )
 
     const data = await res.json()
     return data

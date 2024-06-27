@@ -5,7 +5,7 @@ import { revalidateTag } from 'next/cache'
 export const deleteGroup = async (groupId: string | undefined) => {
   revalidateTag('group update')
   const response = await fetch(
-    `http://localhost:8080/delete/group/${groupId}`,
+    `https://notez-backend-97b9381de6f9.herokuapp.com/delete/group/${groupId}`,
     {
       method: 'DELETE',
       cache: 'no-cache',

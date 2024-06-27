@@ -2,7 +2,7 @@
 
 export const getAllFilesFromGroup = async (groupId: string) => {
   const response = await fetch(
-    `http://localhost:8080/getAll/files/${groupId}`,
+    `https://notez-backend-97b9381de6f9.herokuapp.com/getAll/files/${groupId}`,
     {
       cache: 'no-cache',
       next: { tags: ['get files'] },

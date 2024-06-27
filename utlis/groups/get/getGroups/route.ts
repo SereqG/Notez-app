@@ -1,8 +1,11 @@
 export const getGroups = async (userId: string) => {
-  const response = await fetch(`http://localhost:8080/group/${userId}`, {
-    cache: 'no-cache',
-    next: { tags: ['group update'] },
-  })
+  const response = await fetch(
+    `https://notez-backend-97b9381de6f9.herokuapp.com/group/${userId}`,
+    {
+      cache: 'no-cache',
+      next: { tags: ['group update'] },
+    }
+  )
 
   if (!response.ok) {
     throw new Error(
