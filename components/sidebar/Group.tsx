@@ -21,16 +21,18 @@ export function Group({ group }: props) {
   }, [group])
 
   return (
-    <div key={group.id} className="w-64">
+    <div key={group.id} className="mt-4 w-64">
       <div className="flex w-full items-center">
         {group.photo && (
-          <CldImage
-            src={group.photo}
-            alt="Group image"
-            width={150}
-            height={150}
-            className=" h-10 w-10 rounded-full p-2"
-          />
+          <div className="mr-2 flex h-8 w-8 items-center justify-center overflow-hidden rounded-full">
+            <CldImage
+              src={group.photo}
+              alt="Group image"
+              width={200}
+              height={200}
+              className="h-auto w-12 max-w-none"
+            />
+          </div>
         )}
         <div className="flex w-full items-center justify-between">
           <Link href={`/groups/${group.id}`} className="hover:underline">

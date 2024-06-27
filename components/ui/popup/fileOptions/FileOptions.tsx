@@ -3,7 +3,7 @@ import { fileType, groupType } from '@/types/data'
 import { getFile } from '@/utlis/files/get/route'
 import { getParticularGroup } from '@/utlis/groups/get/getParticularGroup/route'
 import { useUser } from '@clerk/nextjs'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { ChangeFileName } from './ChangeFileName'
@@ -35,16 +35,19 @@ export function FileOptions({ fileId }: props) {
       onClick: () =>
         (window.location.href = `http://localhost:8080/files/${fileData?.filename}`),
       isAuthorizationRequired: false,
+      disabled: fileData?.type == 'note' ? true : false,
     },
     {
       label: 'Share in another group',
       onClick: () => setChosenOption('shareInAnotherGroup'),
       isAuthorizationRequired: false,
+      disabled: false,
     },
     {
       label: 'Change name',
       onClick: () => setChosenOption('changeName'),
       isAuthorizationRequired: true,
+      disabled: false,
     },
     {
       label: 'Delete from the group',
@@ -59,6 +62,7 @@ export function FileOptions({ fileId }: props) {
         setPopupData({ ...popupData, isVisible: !popupData.isVisible })
       },
       isAuthorizationRequired: true,
+      disabled: false,
     },
   ]
 
@@ -94,31 +98,40 @@ export function FileOptions({ fileId }: props) {
                   label: string
                   onClick: () => void
                   isAuthorizationRequired: boolean
+                  disabled: boolean
                 }) => (
-                  <button
-                    className={`text-xs underline ${
-                      el.isAuthorizationRequired &&
-                      user != null &&
-                      fileData.author != user.emailAddresses[0].emailAddress &&
-                      !group.admins.includes(
-                        user.emailAddresses[0].emailAddress
-                      )
-                        ? 'text-gray-400'
-                        : ''
-                    }`}
-                    disabled={
-                      el.isAuthorizationRequired &&
-                      user != null &&
-                      fileData.author != user.emailAddresses[0].emailAddress &&
-                      !group.admins.includes(
-                        user.emailAddresses[0].emailAddress
-                      )
-                    }
-                    onClick={el.onClick}
-                    key={el.label}
-                  >
-                    {el.label}
-                  </button>
+                  <div key={el.label}>
+                    {el.disabled ? (
+                      ''
+                    ) : (
+                      <button
+                        className={`text-xs underline ${
+                          el.isAuthorizationRequired &&
+                          user != null &&
+                          fileData.author !=
+                            user.emailAddresses[0].emailAddress &&
+                          !group.admins.includes(
+                            user.emailAddresses[0].emailAddress
+                          )
+                            ? 'text-gray-400'
+                            : ''
+                        }`}
+                        disabled={
+                          el.isAuthorizationRequired &&
+                          user != null &&
+                          fileData.author !=
+                            user.emailAddresses[0].emailAddress &&
+                          !group.admins.includes(
+                            user.emailAddresses[0].emailAddress
+                          )
+                        }
+                        onClick={el.onClick}
+                        key={el.label}
+                      >
+                        {el.label}
+                      </button>
+                    )}
+                  </div>
                 )
               )}
             </div>

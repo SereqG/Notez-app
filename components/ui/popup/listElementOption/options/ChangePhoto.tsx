@@ -9,23 +9,32 @@ import { useBottomPopupDataContext } from '@/context/BottomPopupContext'
 import { MainButton } from '@/components/ui/buttons/MainButton'
 import { uploadFile } from '@/utlis/groups/photo/uploadFile'
 
-export function ChangePhoto() {
-  const [content, setContent] = useState<'form' | 'message'>('form')
+interface props {
+  groupId: string
+}
 
+export function ChangePhoto({ groupId }: props) {
   const { bottomPopupData, setBottomPopupData } = useBottomPopupDataContext()
 
-  const uploadFileWithGroupId = uploadFile.bind(
-    null,
-    '6659e7628fb2c7e4f87acbb4'
-  )
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget.closest('form')
+    if (form) {
+      const formData = new FormData(form)
+      await uploadFile(groupId, formData).then((res) => {
+        setBottomPopupData({ isVisible: true, isSuccess: true })
+      })
+    }
+  }
 
   return (
     <div className="flex">
-      <form action={uploadFileWithGroupId} className="flex flex-col">
+      <form className="flex flex-col">
         <label htmlFor="img">Upload image</label>
         <input type="file" name="img" id="img" />
-        <div className="w-36">
-          <MainButton onClick={() => setContent('message')}>Submit</MainButton>
+        <div className="mt-4 w-36">
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       </form>
     </div>

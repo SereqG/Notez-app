@@ -15,8 +15,8 @@ export function UserList({
   deleteUserFunction,
 }: props) {
   return (
-    <div className="text-sm">
-      <h2>User list:</h2>
+    <div>
+      <h2 className="text-sm">User list:</h2>
       <ul className="flex max-h-40 flex-col gap-2 overflow-auto">
         {userData.map((el: GroupMember) => (
           <li key={el.id} className="flex h-10 justify-between">

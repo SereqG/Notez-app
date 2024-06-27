@@ -134,15 +134,6 @@ export function CreateGroup() {
         buttonText="Add admin"
       />
 
-      <div>
-        <h2 className="text-base font-normal">Set password</h2>
-        <TextInput
-          onChange={(e) => handleInputChange(e, 'password')}
-          placeholder="Password"
-          value={groupData.password}
-        />
-      </div>
-
       <MainButton onClick={handleCreateGroup}>Create</MainButton>
     </div>
   )

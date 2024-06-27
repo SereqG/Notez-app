@@ -29,7 +29,7 @@ export function ShareInAnotherGroup({ file }: props) {
 
   return (
     <div>
-      <ul>
+      <ul className="list-none">
         {groups?.map((group: groupType) => (
           <li key={group.id}>
             {file.groups.includes(group.id) ? (
@@ -46,16 +46,16 @@ export function ShareInAnotherGroup({ file }: props) {
                       className=" h-10 w-10 rounded-full p-2"
                     />
                   )}
-                  <h2>{group.name}</h2>
+                  <h2 className="text-base">{group.name}</h2>
                 </div>
                 <SquareButton
                   onClick={() => {
-                    shareFile(group.id, file.id).then((data) =>
+                    shareFile(group.id, file.id).then((res) => {
                       setBottomPopupData({
                         isVisible: true,
-                        isSuccess: data.isSuccess,
+                        isSuccess: res.isSuccess,
                       })
-                    )
+                    })
                     setGroups(() => groups.filter((el) => el.id != group.id))
                   }}
                 >

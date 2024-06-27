@@ -29,8 +29,8 @@ export function ChangeFileName({ file, setData }: props) {
       />
       <SquareButton
         onClick={() => {
-          updateFileName(file.id, name).then((data) => {
-            setBottomPopupData({ isVisible: true, isSuccess: data.isSuccess })
+          updateFileName(file.id, name).then((res) => {
+            setBottomPopupData({ isVisible: true, isSuccess: res.isSuccess })
           }),
             setData({ ...file, name: name })
           router.refresh()

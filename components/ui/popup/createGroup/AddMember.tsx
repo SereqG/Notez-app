@@ -46,10 +46,10 @@ export function AddMember({
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="font-bold">Add a {userType}</h1>
+      <h1 className="text-base font-bold">Add a {userType}</h1>
 
       <div>
-        <h2>Find by email address</h2>
+        <h2 className="text-sm">Find by email address</h2>
         <div className="flex">
           <TextInput
             onChange={handleInputChange}

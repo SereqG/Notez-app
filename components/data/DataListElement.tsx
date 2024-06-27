@@ -1,7 +1,7 @@
 'use client'
 
 import { usePopupDataContext } from '@/context/PopupData'
-import { groupAndDataType, groupType } from '@/types/data'
+import { groupAndDataType } from '@/types/data'
 import { CldImage } from 'next-cloudinary'
 import Link from 'next/link'
 import { BsThreeDotsVertical } from 'react-icons/bs'

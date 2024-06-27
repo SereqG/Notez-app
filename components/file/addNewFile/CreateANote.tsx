@@ -26,18 +26,21 @@ export function CreateANote({ groupId }: props) {
   const uploadANote = () => {
     setError('')
     if (noteName == '') {
-      setError('noteName cannot be empty')
+      setError('Note name cannot be empty')
     } else {
       upload({
         content: editor?.getHTML(),
         name: noteName,
         author: user && user.emailAddresses[0].emailAddress,
         groupId: groupId && groupId,
-      })
-      setPopupData({ ...popupData, isVisible: !popupData.isVisible })
-      setBottomPopupData({
-        isVisible: !bottomPopupData.isVisible,
-        isSuccess: true,
+      }).then((res) => {
+        if (res.isSuccess) {
+          setPopupData({ ...popupData, isVisible: !popupData.isVisible })
+        }
+        setBottomPopupData({
+          isVisible: !bottomPopupData.isVisible,
+          isSuccess: res.isSuccess,
+        })
       })
     }
   }

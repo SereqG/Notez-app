@@ -15,7 +15,7 @@ interface props {
 export function DataSortingElement({ label, inputData }: props) {
   return (
     <form className="mt-3 flex flex-col gap-3" key={label}>
-      <h1>{label}</h1>
+      <h1 className="text-base">{label}</h1>
       {inputData.map((e) => (
         <InputRadio
           key={e.label}

@@ -39,7 +39,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
   return (
-    <nav className="my-3 flex w-full flex-wrap items-center justify-between gap-6 rounded-3xl px-6 py-2.5 sm:w-auto sm:border-2 sm:border-primary">
+    <nav className="z-50 my-3 flex w-full flex-wrap items-center justify-between gap-6 rounded-3xl px-6 py-2.5 sm:w-auto sm:border-2 sm:border-primary">
       <Link href="/" className="font-bold sm:border-r sm:pr-6">
         NoteZ
       </Link>

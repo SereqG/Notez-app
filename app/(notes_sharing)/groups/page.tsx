@@ -1,7 +1,6 @@
 import { Data } from '@/components/data/Data'
 import { getGroups } from '@/utlis/groups/get/getGroups/route'
 import { currentUser } from '@clerk/nextjs/server'
-import { redirect } from 'next/navigation'
 
 export default async function Page() {
   const user = await currentUser()

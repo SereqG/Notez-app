@@ -1,6 +1,6 @@
 'use server'
 import { v2 as cloudinary } from 'cloudinary'
-import { ChangeGroupPhoto } from './route'
+import { changeGroupPhoto } from './route'
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -9,6 +9,8 @@ cloudinary.config({
 })
 
 export async function uploadFile(groupId: string, formData: FormData) {
+  console.log(formData)
+
   const file = formData.get('img') as File
   const arrayBuffer = await file.arrayBuffer()
   const buffer = Buffer.from(arrayBuffer)
@@ -27,7 +29,7 @@ export async function uploadFile(groupId: string, formData: FormData) {
           }
           resolve(result)
           if (result) {
-            ChangeGroupPhoto(result.public_id, groupId)
+            changeGroupPhoto(result.public_id, groupId)
           }
         }
       )

@@ -2,9 +2,7 @@
 
 import { revalidateTag } from 'next/cache'
 
-export const ChangeGroupPhoto = async (publicId: string, groupId: string) => {
-  console.log(publicId)
-
+export const changeGroupPhoto = async (publicId: string, groupId: string) => {
   revalidateTag('get files')
   const response = await fetch(
     `http://localhost:8080/update/photo/${groupId}`,

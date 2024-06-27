@@ -30,13 +30,13 @@ export function UploadExistingFile({ groupId }: props) {
       formData.append('author', user.emailAddresses[0].emailAddress)
 
       uploadExisting({ formData: formData }).then((res) => {
-        if (res.message) {
+        if (res.isSuccess) {
           setPopupData({ ...popupData, isVisible: !popupData.isVisible })
-          setBottomPopupData({
-            isVisible: !bottomPopupData.isVisible,
-            isSuccess: true,
-          })
         }
+        setBottomPopupData({
+          isVisible: !bottomPopupData.isVisible,
+          isSuccess: res.isSuccess,
+        })
       })
     }
   }

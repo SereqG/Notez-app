@@ -158,7 +158,9 @@ export function ListElementOption({ groupId }: props) {
               setData={setGroupData}
             />
           ) : (
-            chosenOption == 'changePhoto' && <ChangePhoto />
+            chosenOption == 'changePhoto' && (
+              <ChangePhoto groupId={groupData.id} />
+            )
           )}
         </div>
       </div>
