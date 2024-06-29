@@ -1,40 +1,58 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NoteZ
+
+NoteZ is a project designed with educational and learning objectives in mind. Its core purpose is to integrate enjoyment with practical utility in daily routines. As a student myself, I recognize the importance of having an effective notes and file management system that not only organizes information efficiently but also simplifies the process of sharing and accessing notes. This project aims to address these needs by providing a platform where users can manage their notes seamlessly, ensuring they are readily available whenever needed. By promoting a user-friendly approach to note-taking and file organization, NoteZ endeavors to enhance productivity and support learning processes effectively
 
 ## Getting Started
 
-First, run the development server:
+###  Install
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Clone the project
+`git clone https://github.com/SereqG/notez-app`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Access the project directory
+`cd notez`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Install dependencies.
+`npm i`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Create an .env.local file and add variables
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+CLERK_SECRET_KEY
+NEXT_PUBLIC_CLERK_SIGN_IN_URL
+NEXT_PUBLIC_CLERK_SIGN_UP_URL
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
 
-## Learn More
+- Run server
+`npm run dev`
 
-To learn more about Next.js, take a look at the following resources:
+## Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Static Badge](https://img.shields.io/badge/html-gray?style=for-the-badge&logo=html5&logoColor=white)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Static Badge](https://img.shields.io/badge/JavaScript-gray?style=for-the-badge&logo=javascript&logoColor=white)
 
-## Deploy on Vercel
+![Static Badge](https://img.shields.io/badge/TypeScript-gray?style=for-the-badge&logo=typescript&logoColor=white)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Static Badge](https://img.shields.io/badge/React-gray?style=for-the-badge&logo=React&logoColor=white)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-=======
-# notez-app
->>>>>>> 91616054bb0c6642f4572622b7d004ae3253f816
+![Static Badge](https://img.shields.io/badge/Next-gray?style=for-the-badge&logo=next.js&logoColor=white)
+
+![Static Badge](https://img.shields.io/badge/Taliwind-gray?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+![Static Badge](https://img.shields.io/badge/Framer-gray?style=for-the-badge&logo=framer&logoColor=white)
+
+## Features
+
+- Authentication
+- File management
+- Static file download
+- Creating groups
+- Sharing files and notes
+- Creating notes with advanced text editor
+
+## Future Features
+- Cooperative mode: This mode provides possibility to edit one note by many people at the same time
