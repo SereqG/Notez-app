@@ -34,7 +34,13 @@ export function ChangePhoto({ groupId }: props) {
         <label htmlFor="img">Upload image</label>
         <input type="file" name="img" id="img" />
         <div className="mt-4 w-36">
-          <button onClick={handleSubmit}>Submit</button>
+          <button
+            className="flex min-h-10 min-w-28 items-center justify-center rounded-lg bg-primary px-4 py-2 text-xs font-bold transition-all duration-300 hover:bg-primary-hover"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Upload
+          </button>
         </div>
       </form>
     </div>
